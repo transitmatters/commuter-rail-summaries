@@ -1,0 +1,15 @@
+date,time,trip_id,line_id,route_id,route_pattern_id,route_name,route_pattern_name,service_id,service_typicality,direction,from_station,to_station
+2019-10-10,17:00:00,CR-Foxboro-Sunday-2020-9880,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-2020,2,1,Providence,Foxboro
+2019-10-10,18:00:00,CR-Foxboro-Sunday-2020-9781,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-2020,2,0,South Station,Foxboro
+2019-10-27,14:00:00,CR-Foxboro-Sunday-1625-9743,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-1625,2,0,South Station,Foxboro
+2019-10-27,14:00:00,CR-Foxboro-Sunday-1625-9842,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-1625,2,1,Providence,Foxboro
+2019-11-24,14:00:00,CR-Foxboro-Sunday-1625-9743,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-1625,2,0,South Station,Foxboro
+2019-11-24,14:00:00,CR-Foxboro-Sunday-1625-9842,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-1625,2,1,Providence,Foxboro
+2019-12-08,14:00:00,CR-Foxboro-Sunday-1625-9743,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-1625,2,0,South Station,Foxboro
+2019-12-08,14:00:00,CR-Foxboro-Sunday-1625-9842,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-1625,2,1,Providence,Foxboro
+2019-12-21,14:00:00,CR-Foxboro-Sunday-1625-9743,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-1625,2,0,South Station,Foxboro
+2019-12-21,14:00:00,CR-Foxboro-Sunday-1625-9842,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-1625,2,1,Providence,Foxboro
+2019-12-29,10:15:00,CR-Foxboro-Sunday-1300-9711,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-1300,2,0,South Station,Foxboro
+2019-12-29,10:30:00,CR-Foxboro-Sunday-1300-9810,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-1300,2,1,Providence,Foxboro
+2020-01-04,17:50:00,CR-Foxboro-Sunday-2030-9783,line-Foxboro,CR-Foxboro,CR-Foxboro-0-0,Foxboro Event Service,South Station - Foxboro via Back Bay & Dedham,CR-Foxboro-Su-2030,2,0,South Station,Foxboro
+2020-01-04,17:55:00,CR-Foxboro-Sunday-2030-9882,line-Foxboro,CR-Foxboro,CR-Foxboro-1-1,Foxboro Event Service,Providence - Foxboro,CR-Foxboro-Su-2030,2,1,Providence,Foxboro
