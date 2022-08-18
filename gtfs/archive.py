@@ -86,7 +86,6 @@ def extract_gtfs_zip(feed: GtfsFeed):
 
 
 def get_feed_summary(feed: GtfsFeed):
-    extract_gtfs_zip(feed)
     pickle_path = feed.feed_pickle_path
     if path.exists(pickle_path):
         with open(pickle_path, "rb") as file:
@@ -94,6 +93,7 @@ def get_feed_summary(feed: GtfsFeed):
                 return pickle.load(file)
             except Exception:
                 print("Error loading pickled feed summary")
+    extract_gtfs_zip(feed)
     print("Creating network from scratch...")
     network = build_network_from_gtfs(feed.loader)
     feed_summary = get_feed_summary_for_network(network)
