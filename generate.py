@@ -13,10 +13,11 @@ from gtfs.summarize import FeedSummary, TripSummary
 from gtfs.time import (
     DAYS_OF_WEEK,
     is_early_am,
+    is_peak_am,
+    is_midday,
+    is_peak_pm,
     is_evening_pm,
     is_late_pm,
-    is_midday,
-    is_peak_am,
 )
 from gtfs.util import (
     bucket_by,
@@ -38,31 +39,77 @@ class DaySummary(object):
         return len(list(filter(predicate, self.trips)))
 
     @cached_property
-    def all_trips(self):
+    def _most_stop_times(self):
+        return max((len(trip.stop_times) for trip in self.trips))
+
+    @cached_property
+    def total_trips(self):
         return self._filter_and_count_trips(lambda t: True)
 
     @cached_property
     def early_am_trips(self):
-        return self._filter_trips(lambda trip: is_early_am(trip.stop_times[-1].time))
+        return self._filter_and_count_trips(
+            lambda trip: is_early_am(trip.stop_times[-1].time)
+        )
 
     @cached_property
     def peak_am_trips(self):
-        return self._filter_trips(lambda trip: is_peak_am(trip.stop_times[-1].time))
+        return self._filter_and_count_trips(
+            lambda trip: is_peak_am(trip.stop_times[-1].time)
+        )
 
     @cached_property
     def midday_trips(self):
-        return self._filter_trips(
-            lambda trip: is_midday(trip.stop_times[0].time)
-            or is_midday(trip.stop_times[-1].time)
+        return self._filter_and_count_trips(
+            lambda trip: is_midday(trip.stop_times[-1].time)
+            or is_midday(trip.stop_times[0].time)
+        )
+
+    @cached_property
+    def peak_pm_trips(self):
+        return self._filter_and_count_trips(
+            lambda trip: is_peak_pm(trip.stop_times[0].time)
         )
 
     @cached_property
     def evening_pm_trips(self):
-        return self._filter_trips(lambda trip: is_evening_pm(trip.stop_times[0].time))
+        return self._filter_and_count_trips(
+            lambda trip: is_evening_pm(trip.stop_times[0].time)
+        )
 
     @cached_property
     def late_pm_trips(self):
-        return self._filter_trips(lambda trip: is_late_pm(trip.stop_times[0].time))
+        return self._filter_and_count_trips(
+            lambda trip: is_late_pm(trip.stop_times[0].time)
+        )
+
+    @cached_property
+    def express_trips(self):
+        if self.route_id == "CR-Newburyport":
+            return 0
+        return self._filter_and_count_trips(
+            lambda trip: len(trip.stop_times) < self._most_stop_times
+        )
+
+    @cached_property
+    def local_trips(self):
+        if self.route_id == "CR-Newburyport":
+            return self.total_trips
+        return self._filter_and_count_trips(
+            lambda trip: len(trip.stop_times) == self._most_stop_times
+        )
+
+    @cached_property
+    def typical_trips(self):
+        return self._filter_and_count_trips(
+            lambda trip: trip.service.schedule_typicality in (0, 1)
+        )
+
+    @cached_property
+    def atypical_trips(self):
+        return self._filter_and_count_trips(
+            lambda trip: trip.service.schedule_typicality in (2, 3, 4, 5)
+        )
 
 
 @dataclass
@@ -194,9 +241,45 @@ def write_trips_csv_for_route_id(route_id: str, trips_on_date: List[TripOnDate])
 
 def write_summary_csv(trips_by_date: Dict[date, List[DaySummary]]):
     csv_path = path.join(OUTPUT_PATH, "summary.csv")
-    for (date, day_summaries) in trips_by_date.items():
-        for day_summary in day_summaries:
-            print(date, day_summary.route_id, day_summary.all_trips)
+    with open(csv_path, "w") as csv_file:
+        writer = DictWriter(
+            csv_file,
+            [
+                "date",
+                "route_id",
+                "total_trips",
+                "early_am_trips",
+                "peak_am_trips",
+                "midday_trips",
+                "peak_pm_trips",
+                "evening_pm_trips",
+                "late_pm_trips",
+                "local_trips",
+                "express_trips",
+                "typical_trips",
+                "atypical_trips",
+            ],
+        )
+        writer.writeheader()
+        for (date, day_summaries) in trips_by_date.items():
+            for day_summary in day_summaries:
+                writer.writerow(
+                    {
+                        "date": date.strftime("%Y-%m-%d"),
+                        "route_id": day_summary.route_id,
+                        "total_trips": day_summary.total_trips,
+                        "early_am_trips": day_summary.early_am_trips,
+                        "peak_am_trips": day_summary.peak_am_trips,
+                        "midday_trips": day_summary.midday_trips,
+                        "peak_pm_trips": day_summary.peak_pm_trips,
+                        "evening_pm_trips": day_summary.evening_pm_trips,
+                        "late_pm_trips": day_summary.late_pm_trips,
+                        "local_trips": day_summary.local_trips,
+                        "express_trips": day_summary.express_trips,
+                        "typical_trips": day_summary.typical_trips,
+                        "atypical_trips": day_summary.atypical_trips,
+                    }
+                )
 
 
 def main():

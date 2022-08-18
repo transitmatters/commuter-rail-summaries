@@ -1,3 +1,4 @@
 .DS_Store
 archives/**/data.zip
 archives/**/feed
+output/

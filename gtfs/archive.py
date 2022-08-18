@@ -14,7 +14,7 @@ from gtfs.loader import GtfsLoader
 from gtfs.network import build_network_from_gtfs
 from gtfs.summarize import get_feed_summary_for_network
 from gtfs.time import date_from_string, date_to_string
-from gtfs.util import ensure_dir, listify
+from gtfs.util import ensure_dir
 
 
 @dataclass

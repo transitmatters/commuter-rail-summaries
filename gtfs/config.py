@@ -2,7 +2,7 @@ from datetime import date
 from os import path
 
 EARLIEST_DATE = date(2019, 10, 3)
-LATEST_DATE = date(2020, 2, 1)
+LATEST_DATE = date(2022, 8, 10)
 
 IGNORE_LINE_IDS = ["line-CapeFlyer", "line-Foxboro"]
 
